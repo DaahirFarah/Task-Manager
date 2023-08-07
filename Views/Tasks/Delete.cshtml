@@ -1,48 +1,126 @@
 ﻿@model TaskM.Models.Task
 
-@{
-    ViewBag.Title = "Delete";
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/assets/Style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
 
-<h2>Delete</h2>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Task</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskName)
-        </dt>
+        .background-icon {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            font-size: 200px;
+            opacity: 0.3;
+            color: #007bff;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.TaskName)
-        </dd>
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskDesc)
-        </dt>
+        label {
+            font-weight: bold;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.TaskDesc)
-        </dd>
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskPri)
-        </dt>
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.TaskPri)
-        </dd>
+        .submit-btn,
+        .back-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
 
-    </dl>
+        .submit-btn {
+            background-color: #007bff;
+        }
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        .back-btn {
+            background-color: #6c757d;
+        }
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        /* Additional styles for delete page */
+        .delete-confirm {
+            text-align: center;
+            margin-top: 20px;
+            color: #ff0000;
+            font-size: 18px;
+        }
+    </style>
+    <title>Task Manager - Delete Task</title>
+</head>
+<body>
+    <div class="background-icon">
+        <i class="fas fa-tasks"></i>
+    </div>
+    <div class="container">
+        <header>
+            <h1>Delete Task</h1>
+        </header>
+        <div class="card">
+            <form method="post" action="@Url.Action("Delete", "Tasks")">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" id="TaskId" name="TaskId" value="@Model.TaskId">
+
+                <label for="TaskName">Task Name:</label>
+                <input type="text" id="TaskName" name="TaskName" value="@Model.TaskName" readonly>
+
+                <label for="TaskDesc">Task Description:</label>
+                <textarea id="TaskDesc" name="TaskDesc" readonly>@Model.TaskDesc</textarea>
+
+                <label for="TaskPri">Task Priority:</label>
+                <input type="text" id="TaskPri" name="TaskPri" value="@Model.TaskPri" readonly>
+
+                <div class="delete-confirm">
+                    Are you sure you want to delete this task?
+                </div>
+
+                <div class="buttons">
+                    <button class="submit-btn" type="submit"><i class="fas fa-trash"></i> Delete</button>
+                    <a class="back-btn" href="@Url.Action("Index", "Tasks")"><i class="fas fa-arrow-left"></i> Cancel</a>
+                </div>
+            </form>
         </div>
-    }
-</div>
+    </div>
+</body>
+</html>
