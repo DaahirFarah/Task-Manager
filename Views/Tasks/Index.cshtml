@@ -1,0 +1,39 @@
+﻿@model IEnumerable <TaskM.Models.Task>
+
+
+@{
+    ViewBag.Title = "Tasks";
+}
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Priority</th>
+            <th scope="auto">Edit</th>
+            <th scope="auto">Delete</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th scope="row"> @Html.DisplayFor(model => item.TaskId)</th>
+            <td> @Html.DisplayFor(model => item.TaskName)</td>
+            <td>@Html.DisplayFor(model => item.TaskDesc)</td>
+            <td>@Html.DisplayFor(model => item.TaskPri)</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TaskId }, new { @class = "btn btn-secondary" })
+
+            </td>
+            <td>
+               @Html.ActionLink("Delete", "Delete", new { id = item.TaskId}, new {@class = "btn btn-danger"})
+            </td>
+        </tr>
+    }
+
+    
+</table>
+

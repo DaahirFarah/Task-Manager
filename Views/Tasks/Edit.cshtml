@@ -1,0 +1,118 @@
+﻿@model TaskM.Models.Task
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/assets/Style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .background-icon {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            font-size: 200px;
+            opacity: 0.3;
+            color: #007bff;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .submit-btn,
+        .back-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background-color: #007bff;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+        }
+    </style>
+    <title>Task Manager - Edit Task</title>
+</head>
+<body>
+    <div class="background-icon">
+        <i class="fas fa-tasks"></i>
+    </div>
+    <div class="container">
+        <header>
+            <h1>Edit Task</h1>
+        </header>
+        <div class="card">
+            <form method="post" action="@Url.Action("Edit", "Tasks")">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" id="TaskId" name="TaskId" value="@Model.TaskId">
+
+                <label for="TaskName">Task Name:</label>
+                <input type="text" id="TaskName" name="TaskName" placeholder="Enter task name" value="@Model.TaskName" required>
+
+                <label for="TaskDesc">Task Description:</label>
+                <textarea id="TaskDesc" name="TaskDesc" placeholder="Enter task description">@Model.TaskDesc</textarea>
+
+                <label for="TaskPri">Task Priority:</label>
+                <select id="TaskPri" name="TaskPri">
+                    <option value="high" @(Model.TaskPri == "high" ? "selected" : "")>High</option>
+                    <option value="medium" @(Model.TaskPri == "medium" ? "selected" : "")>Medium</option>
+                    <option value="low" @(Model.TaskPri == "low" ? "selected" : "")>Low</option>
+                </select>
+
+                <div class="buttons">
+                    <button class="submit-btn" type="submit"><i class="fas fa-check"></i> Update</button>
+                    <a class="back-btn" href="@Url.Action("Index", "Tasks")"><i class="fas fa-arrow-left"></i> Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

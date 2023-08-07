@@ -1,0 +1,46 @@
+﻿@model TaskM.Models.Task
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/assets/Style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Task Manager - Create Task</title>
+</head>
+<body>
+    <div class="background-icon">
+        <i class="fas fa-tasks"></i>
+    </div>
+    <div class="container">
+        <header>
+            <h1>Create New Task</h1>
+        </header>
+        <div class="card">
+            <form method="post" action="@Url.Action("Create", "Tasks")">
+                @Html.AntiForgeryToken()
+
+                <label for="TaskName">Task Name:</label>
+                <input type="text" id="TaskName" name="TaskName" placeholder="Enter task name" required>
+
+                <label for="TaskDesc">Task Description:</label>
+                <textarea id="TaskDesc" name="TaskDesc" placeholder="Enter task description"></textarea>
+
+                <label for="TaskPri">Task Priority:</label>
+                <select id="TaskPri" name="TaskPri">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+
+                <div class="buttons">
+                    <button class="submit-btn" type="submit"><i class="fas fa-check"></i> Submit</button>
+                    <a class="back-btn" href="@Url.Action("Index", "Tasks")"><i class="fas fa-arrow-left"></i> Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
